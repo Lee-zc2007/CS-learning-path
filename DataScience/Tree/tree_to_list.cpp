@@ -14,33 +14,53 @@ right 是右子节点的编号。节点编号从 1 到 n，0 表示空节点。
 using namespace std;
 
 //构建TreeNode
-    struct TreeNode{
-        int val, left=0, right=0;
-    };
+struct TreeNode{
+    int val, left, right;
+    TreeNode():val(0), left(0), right(0){}
+};
 
-//前序遍历实现(维护一个栈，将结点依次进栈，出栈的时候把左右结点按照先右后左出栈)
-void preOr(int n,TreeNode *arr){
-    TreeNode *tmp = new TreeNode[n];
-    int currentLength = 0;
-    tmp[currentLength] = arr[1];
-    currentLength++;
+//前序遍历实现(直接在数组的基础上展开：维护一个栈，将结点依次进栈，出栈的时候把左右结点按照先右后左出栈)
+// void preOr(int n,TreeNode *arr){
+//     TreeNode *tmp = new TreeNode[n];
+//     int currentLength = 0;
+//     tmp[currentLength] = arr[1];
+//     currentLength++;
 
-    while (currentLength){
-        cout<<tmp[currentLength-1].val;
-        int l = tmp[currentLength-1].left;//记录出栈结点的左右子结点位置
-        int r = tmp[currentLength-1].right;
-        currentLength--;
-        if (r != 0){
-            tmp[currentLength] = arr[r];
-            currentLength++;
+//     while (currentLength){
+//         cout<<tmp[currentLength-1].val<<' ';
+//         int l = tmp[currentLength-1].left;//记录出栈结点的左右子结点位置
+//         int r = tmp[currentLength-1].right;
+//         currentLength--;
+//         if (r != 0){
+//             tmp[currentLength] = arr[r];
+//             currentLength++;
+//         }
+//         if (l != 0){
+//             tmp[currentLength] = arr[l];
+//             currentLength++;
+//         }
+//     }
+
+//     delete []tmp;
+// }
+
+//展开为单链表（把右子树接到左子树的最右边，把左子树移到右边）
+void flat(TreeNode *arr, int root){
+    int curr = root;
+    while (curr != 0){
+        //需要找到左子树的最右边结点，以根结点为起点，按照前序遍历，根结点为0的时候代表遍历完成
+        if (arr[curr].left != 0){
+            int leftson = arr[curr].left;
+            while (arr[leftson].right != 0)
+                leftson = arr[leftson].right;
+        
+        //把右子树接到左子树最右边后，移动左子树到右边
+            arr[leftson].right = arr[curr].right;
+            arr[curr].right = arr[curr].left;
+            arr[curr].left = 0;
         }
-        if (l != 0){
-            tmp[currentLength] = arr[l];
-            currentLength++;
-        }
+        curr = arr[curr].right;
     }
-
-    delete []tmp;
 }
 
 int main(){
@@ -56,8 +76,14 @@ int main(){
     }
 
     //遍历
-    preOr(n,arr);
+    // preOr(n,arr);
+    flat(arr, 1);
+    int curr = 1;
+    while (curr != 0){
+        cout<<arr[curr].val<<' ';
+        curr = arr[curr].right;
+    }
 
-    
+
     delete []arr;
 }
