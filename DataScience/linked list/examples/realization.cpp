@@ -153,3 +153,120 @@ void sLinkList<elemType>::remove(int i){
     delete q;
     currentLength--;
 }
+
+//search visit和traverse
+template <class elemType>
+int sLinkList<elemType>::search(const elemType &x) const {
+    int i = 0;
+    node *curr = head->next;//不能从head开始，head是空
+    while (curr != nullptr && curr->data != x){//顺序不能反，必须先判断是否非空，否则读不到data程序会崩溃
+        curr = curr->next;
+        i++;
+    }
+
+    if (curr == nullptr)
+    return -1;
+
+    return i;
+}
+
+template <class elemType>
+elemType sLinkList<elemType>::visit(int i) const {
+    return move(i)->data;
+}
+
+template <class elemType>
+void sLinkList<elemType>::traverse() const {
+    node* p = head->next;
+    while (p != nullptr){
+        cout<<p->data;
+        p = p->next;
+    }
+}
+
+//双链表
+//构造函数
+template <class elemType>
+dLinkList<elemType>::dLinkList(){
+    currentLength = 0;
+    head = new node;//head和tail互指，不能为同一个
+    head->next = tail = new node;
+    tail->pre = head;
+}
+
+//插入 删除和move
+template <class elemType>
+void dLinkList<elemType>::insert(int i, const elemType &x){
+    node *curr = move(i-1);
+    node *af = curr->next;
+    curr->next = new node(x, af, curr);
+    af->pre = curr->next;
+}
+
+template <class elemType>
+void dLinkList<elemType>::remove(int i){
+    node *tmp = move(i);
+    tmp->pre->next = tmp->next;
+    tmp->next->pre = tmp->pre;
+    delete tmp;
+    --currentLength;
+}
+
+template <class elemType>
+dLinkList<elemType>::node* dLinkList<elemType>::move(int i) const {//node 也需要作用域限定
+    node *curr = head;
+    while (i-->0)
+    curr = curr->next;
+    return curr;
+}
+
+//visit clear search 和traverse
+template <class elemType>
+elemType dLinkList<elemType>::visit(int i) const {
+    return move(i)->data;
+}
+
+template <class elemType>
+void dLinkList<elemType>::clear(){//把head和tail拆出来单独重置，用p和q代替索引交替删除中间部分
+     node *p = head->next, q;
+     head->next = tail;
+     tail->pre = head;
+     while (p != tail){
+        q = p->next;
+        delete p;
+        p = q;
+     }
+     currentLength = 0;
+}
+
+template <class elemType>
+int dLinkList<elemType>::search(const elemType &x) const{
+    node *res = head->next;
+    int count = 1;
+    while (res != tail){
+        if (res->data == x)
+        return count;
+        res = res->next;
+        count++;
+    }
+    return -1;
+}
+/*
+template <class elemType>
+int dLinkList<elemType>::search(const elemType &x) const{
+    int i = 1;
+    node *res = head->next;
+    for (; res != tail && res->data != x; ++i) res = res->next;
+    if (res != tail) return i;
+    return -1;
+}
+*/
+
+template <class elemType>
+void dLinkList<elemType>::traverse() const {
+    node *p = head->next;
+    while (p != tail){
+        cout<<p->data;
+        p = p->next;
+    }
+}

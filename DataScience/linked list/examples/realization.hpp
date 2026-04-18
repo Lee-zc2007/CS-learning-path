@@ -34,7 +34,7 @@ class seqList: public list<elemType>{
         void traverse() const;
 };
 
-//链接表类
+//单链表类
 template <class elemType>
 class sLinkList: public lsit<elemType>{
     private:
@@ -62,6 +62,40 @@ class sLinkList: public lsit<elemType>{
         void clear();
         int length() const {return currentLength;}
         void insert(int i,const elemType &x);
+        void remove(int i);
+        int search(const elemType &x) const;
+        elemType visit(int i) const;
+        void traverse() const;
+};
+
+//双链表类
+template <class elemType>
+class dLinkList: public list<elemType>{
+    private:
+    struct node{
+        elemType data;
+        node *next;
+        node *pre;
+        node:next(nullptr), pre(nullptr){};
+        node(const elemType &x, node *p = nullptr, node *q = nullptr){
+            data = x;
+            next = p;
+            pre = q;
+        }
+        ~node(){}
+    };
+
+        node *head, *tail;
+        node *move(int i) const;
+        int currentLength;
+
+    public:
+        dLinkList();
+        ~dLinkList(){clear(); delete head; delete tail;}
+
+        void clear();
+        int length() const {return currentLength;}
+        void insert(int i, const elemType &x);
         void remove(int i);
         int search(const elemType &x) const;
         elemType visit(int i) const;
