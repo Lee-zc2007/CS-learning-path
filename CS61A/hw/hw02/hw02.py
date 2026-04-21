@@ -17,12 +17,13 @@ SOURCE_FILE = __file__
 
 
 def product(n, term):
+    #写描述和示例帮助理解函数功能，形参在这里一般用大写，N TERM   >>>的部分是doctest，通过调用python标准库中的doctest模板，自动查找这些函数文档字符串中的示例运行检查
     """Return the product of the first n terms in a sequence.
 
     n: a positive integer
     term: a function that takes an index as input and produces a term
 
-    >>> product(3, identity)  # 1 * 2 * 3
+    >>> product(3, identity)  # 1 * 2 * 3 
     6
     >>> product(5, identity)  # 1 * 2 * 3 * 4 * 5
     120

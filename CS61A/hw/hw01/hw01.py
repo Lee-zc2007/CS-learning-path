@@ -16,7 +16,7 @@ def a_plus_abs_b(a, b):
         f = lambda x, y: x - y
     else:
         f = lambda x, y: x + y
-    return f(a, b)
+    return f(a, b)   #python允许返回多个值，用逗号分隔
 
 def a_plus_abs_b_syntax_check():
     """Check that you didn't change the return statement of a_plus_abs_b.
@@ -68,7 +68,7 @@ def largest_factor(n):
     "*** YOUR CODE HERE ***"
     factor = 1
     count = 1
-    while (count <= n/2):
+    while (count <= n//2): # / truediv浮点数除法  // floordiv整除
         if (n % count == 0):
             factor = count
         count += 1
