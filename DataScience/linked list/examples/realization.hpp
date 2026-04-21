@@ -66,6 +66,7 @@ class sLinkList: public lsit<elemType>{
         int search(const elemType &x) const;
         elemType visit(int i) const;
         void traverse() const;
+        void erase(int x, int y);
 };
 
 //双链表类
@@ -76,7 +77,7 @@ class dLinkList: public list<elemType>{
         elemType data;
         node *next;
         node *pre;
-        node:next(nullptr), pre(nullptr){};
+        node():next(nullptr), pre(nullptr){}
         node(const elemType &x, node *p = nullptr, node *q = nullptr){
             data = x;
             next = p;

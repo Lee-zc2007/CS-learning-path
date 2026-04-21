@@ -184,6 +184,23 @@ void sLinkList<elemType>::traverse() const {
     }
 }
 
+//erase
+template <class elemType>
+void sLinkList<elemType>::erase(int x, int y){
+    move(x-1)->next = move(y+1);//一定要先把链表连接起来，否则会导致断裂
+    node *p = move(x);
+    node *q = move(y);
+    node *curr = p;
+    while (p != q){
+        p = p->next;
+        delete curr;
+        curr = p;
+    }
+    delete p;
+
+    currentLength = currentLength - y + x - 1;//任何改变链表长度的操作都要更新
+}
+
 //双链表
 //构造函数
 template <class elemType>
