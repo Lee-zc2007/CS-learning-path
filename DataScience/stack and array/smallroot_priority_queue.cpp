@@ -15,12 +15,12 @@ class pri_queue{
     public:
     pri_queue(){head = new Node(0); currentLength = 0;}//head使用哑节点，空指针不能访问next
     ~pri_queue(){}
-    void insert(const int &v);//对应操作1
+    void insert(int v);//对应操作1
     void pop();//对应操作2
     void filt();//向下过滤，与操作1解耦
 };
 
-void pri_queue::insert(const int &v){
+void pri_queue::insert(int v){
         Node *temp = new Node(v, head->next);
         head->next = temp;
     filt();    
