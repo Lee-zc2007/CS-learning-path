@@ -18,8 +18,8 @@ void cal_fin(node* arr, int c){
     }
     arr[curr].fin = last_fin + arr[curr].fin; 
     last_fin = arr[curr].fin;
-    cal_fin(arr,arr[curr].left)
-    cal_fin(arr,arr[curr].right)
+    cal_fin(arr,arr[curr].left);
+    cal_fin(arr,arr[curr].right);
 }
 
 int main(){
