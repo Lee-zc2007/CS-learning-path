@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <cstring>
 #include <algorithm>
 #include <stack.hpp>
 using namespace std;
@@ -52,6 +52,21 @@ void seqStack<elemType>::doubleSpace(){
 }
 
 //用栈判断回文数
-bool isReverse(char *s){[
-    int len = strlen()
-]}
+bool isReverse(const char *s){//常量的指针传递和引用传递都要用const，值传递不用，会赋值副本，副本不带有const属性
+    int len = strlen(s);
+    seqStack<char> st(len);
+    for (int i = 0; i<len; i++)
+        st.push(s[i]);
+    int j = 0;
+    while (!st.isEmpty()){
+        if (st.pop() != s[j])
+            return false;
+        j++;
+    }
+    return true;
+    /*判断部分可以替换为
+    for (int i = 0; !st.isEmpty(); i++)
+        if (s[i] != st.pop()) return false;
+    return true;
+    */
+}
