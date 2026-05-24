@@ -70,3 +70,8 @@ bool isReverse(const char *s){//常量的指针传递和引用传递都要用con
     return true;
     */
 }
+
+template <class elemType>
+linkStack<elemType>::linkStack(){
+    top_p = nullptr;
+}

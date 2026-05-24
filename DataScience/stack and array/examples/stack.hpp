@@ -27,5 +27,28 @@ class seqStack : public stack<elemType>{
             elemType top() const;            
 };
 
+template <class elemType>
+class linkStack : public stack<elemType>{
+    private:
+        struct node{
+            elemType data;
+            node *next;
+            node(const elemType &x, node *N = nullptr){data = x; next = N;}
+            node():next(nullptr){}
+            ~node(){}
+        };
+
+        node *top_p;
+
+    public:
+        linkStack();
+        ~linkStack();
+        bool isEmpty();
+        void push(const elemType &x){};
+        elemType pop();
+        elemType top() const;
+};
+
+
 
 #endif
