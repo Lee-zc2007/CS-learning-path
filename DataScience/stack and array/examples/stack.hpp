@@ -43,7 +43,7 @@ class linkStack : public stack<elemType>{
     public:
         linkStack();
         ~linkStack();
-        bool isEmpty();
+        bool isEmpty() const;
         void push(const elemType &x){};
         elemType pop();
         elemType top() const;

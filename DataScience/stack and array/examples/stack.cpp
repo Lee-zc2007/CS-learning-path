@@ -75,3 +75,37 @@ template <class elemType>
 linkStack<elemType>::linkStack(){
     top_p = nullptr;
 }
+
+template <class elemType>
+linkStack<elemType>::~linkStack(){
+    node *tmp;
+    while (top_p != nullptr){
+        tmp = top_p;
+        top_p = top_p->next;
+        delete tmp;
+    }
+}
+
+template <class elemTpye>
+bool linkStack<elemTpye>::isEmpty() const{
+    return top_p == nullptr;
+}
+
+template <class elemType>
+void linkStack<elemType>::push(const elemType &x){
+    top_p = new node(x, top_p);
+}
+
+template <class elemType>
+elemType linkStack<elemType>::pop(){
+    elemType x = top_p->data;
+    elemType *tmp = top_p;
+    top_p = top_p->next;
+    delete tmp;
+    return x;
+}
+
+template <class elemType>
+elemType linkStack<elemType>::top() const{
+    return top_p->data;
+}
