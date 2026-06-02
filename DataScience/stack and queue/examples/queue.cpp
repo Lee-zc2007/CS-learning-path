@@ -68,3 +68,27 @@ template <class elemType>
 bool linkQueue<elemType>::isEmpty() const{
     return front == nullptr;//没有头结点的情况下，用front == rear在只有一个数据的时候，两者都指向该数据，也会被认为空
 }
+
+template <class elemType>
+elemType linkQueue<elemType>::getHead() const{
+    return front->data;
+}
+
+//出队和入队都要单独考虑为空的情况
+template <class elemType>
+void linkQueue<elemType>::enQueue(const elemType &x){
+    if (rear == nullptr)//要分两种情况，空指针不能用->
+        front = rear = new node(x);
+    else
+        rear = rear->next = new node(x);
+}
+
+template <class elemType>
+elemType linkQueue<elemType>::deQueue(){
+    elemType x = front->data;
+    elemType *tmp = front;//要专门把这个删掉
+    front = front->next;
+    if (front == nullptr) rear == nullptr;//删掉最后一个结点，rear不会自动变成空，要手动解决
+    delete tmp;
+    return x;
+}
