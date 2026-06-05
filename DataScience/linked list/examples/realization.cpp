@@ -98,7 +98,7 @@ void seqList<elemType>::remove(int i){
 //单链表
 //move
 template <class elemType>
-sLinkeList<elemType>::node *sLinkList<elemType>::move(int i) const {//node 不是全局类型，要加作用域限定
+sLinkList<elemType>::node *sLinkList<elemType>::move(int i) const {//node 不是全局类型，要加作用域限定
     node *tmp = head;
     while (i-->=0) tmp = tmp->next;//i=0时循环执行一次，返回第0个结点，头结点统一了0号结点与后面结点的操作
     return tmp;

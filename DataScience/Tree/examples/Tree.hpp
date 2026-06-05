@@ -23,7 +23,7 @@ class bTree{
         virtual T root(T flag) const = 0;
         virtual T parent(T x, T flag) const = 0;
         virtual T lchild(T x, T flag) const = 0;
-        virtual T rchild(T x; T flag) const = 0;
+        virtual T rchild(T x, T flag) const = 0;
         virtual void delLeft(T x) = 0; 
         virtual void delRight(T x) = 0; 
         virtual void preOrder () const = 0; 
@@ -47,9 +47,35 @@ class binaryTree: public bTree<T>{
         Node *root;
     
     public:
+        binaryTree():root(nullptr){}
+        binaryTree(T x){root = new Node(x);}
+        ~binaryTree();
         void clear();
         bool isEmpty();
-        void create(T flag);
+        T Root(T flag) const;
+        T lchild(T x, T flag) const;
+        T rchild(T x, T flag) const;
+        void delLeft(T x);
+        void delRight(T x);
+        //外部接口，调用private函数实现
+        void preOrder();
+        void midOrder();
+        void postOrder();
+        void levelOrder() const;//不需要调用，直接实现
+        void createTree(T flag);//构造整棵树，构造函数只负责创建对象    
+        T parent(T x, T flag) const {return flag;}//?为什么 return flag?
+        int size();
+        int height();
+
+    private:
+        Node *find(T x, Node *t) const;//查找以t为根结点的子树中值为x的结点
+        void clear(Node *&t);//清空以t为根结点的子树，采用指针引用可以把t改为空指针，否则函数会创建一个t的副本，t并不能变成空指针
+        //递归遍历的辅助函数
+        void preOrder(Node *t) const;
+        void midOrder(Node *t) const;
+        void postOrder(Node *t) const;
+        int size(Node *t) const;
+        int height(Node *t) const;
 };
 
 #endif
