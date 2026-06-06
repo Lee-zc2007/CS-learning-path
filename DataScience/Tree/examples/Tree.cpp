@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include <list>
+#include <stack>
 
 template <class T>
 bool binaryTree<T>::isEmpty(){
@@ -188,7 +189,7 @@ int binaryTree<T>::height(){
 }
 
 template <class T>
-int binaryTree<T>::height(binaryTree<T>::Node *t){
+int binaryTree<T>::height(binaryTree<T>::Node *t) const {
     if (t == nullptr) return 0;
     else {
         lt = height(t->left);
@@ -196,3 +197,18 @@ int binaryTree<T>::height(binaryTree<T>::Node *t){
         return 1+((rt>lt) ? rt : lt);
     }
 }
+
+//前序遍历非递归实现
+template <class template>
+void binaryTree<T>::preOrder() const {
+    std::stack<Node *> s;
+    s.push(root);
+    while (!s.empty()){
+        Node *tmp = s.pop()
+        std::cout << tmp->data;
+        if (tmp->right != nullptr) s.push(tmp->right);
+        if (tmp->left != nullptr) s.push(tmp->left);
+    }
+}
+
+//中序和后续分别用两次出栈和三次出栈，在类private中再定义一个结构体存储结点和它们的出栈次数用于维护

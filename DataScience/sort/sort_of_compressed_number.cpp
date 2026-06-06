@@ -61,7 +61,7 @@ void insert(int key, int value) {
     int h = hash_func(key);
     node[tot].key = key;
     node[tot].value = value;
-    node[tot].next = head[h];
+    node[tot].next = head[h];//哈希桶使用的核心
     head[h] = tot;
     tot++;
 }
