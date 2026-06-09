@@ -42,7 +42,42 @@ class BinarySearchTree:public dynamicSearchTable<KEY, OTHER>{
         void insert(const SET<KEY, OTHER> &x, BinaryNode *t);
         void remove(const KEY &x, BinaryNode *t);
         SET<KEY, OTHER> *find(const KEY &x, BinaryNode *t) const;
-        void makeEmpty(BinaryNode *t);
+        void makeEmpty(BinaryNode *t);//用于将树置空
+};
+
+//AVL树
+template <class KEY, class OTHER>
+class AvlTree:public dynamicSearchTable<KEY, OTHER>{
+    private:
+        struct AvlNode{
+            SET<KEY, OTHER> data;
+            AvlNode *left;
+            AvlNode *right;
+            int height;
+
+            AvlNode(const SET<KEY, OTHER> &x, AvlNode *lt, AvlNode *rt, int h = 1):data(x), left(lt), right(rt), height(h){}
+        };
+    
+        AvlNode *root;
+    
+    public:
+        AvlTree(){root = nullptr;}
+        ~AvlTree(){makeEmpty(root);}
+        void insert(const SET<KEY, OTHER> &x);
+        void remove(const KEY &x);
+        SET<KEY, OTHER> *find(const KEY &x) const;//没用递归实现
+
+    private:
+        void insert(const SET<KEY, OTHER> &x, AvlNode *t);
+        bool remove(const KEY &x, AvlNode *t);//一定要bool，表示子树是不是变矮了，删除可能一直影响到根结点，true表示没发生变化
+        void makeEmpty(AvlNode *t);
+        int height(AvlNode *t) const{return (t == nullptr)?0:t->height;}//防止读到空结点的时候崩溃
+        void LL(AvlNode *&t);
+        void LR(AvlNode *&t);
+        void RL(AvlNode *&t);
+        void RR(AvlNode *&t);
+        int max(int a, int b){return (a>b)?a:b;}
+        bool adjust(AvlNode *&t, int subTree);//删除时用于调整失衡，0表示左子树变矮，1表示右子树变矮
 };
 
 #endif
