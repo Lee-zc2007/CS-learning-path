@@ -80,4 +80,26 @@ class AvlTree:public dynamicSearchTable<KEY, OTHER>{
         bool adjust(AvlNode *&t, int subTree);//删除时用于调整失衡，0表示左子树变矮，1表示右子树变矮
 };
 
+//散列表
+template <class KEY, class OTHER>
+class closeHashTable:public dynamicSearchTable<KEY, OTHER>{
+    private:
+        struct node{
+            SET<KEY, OTHER> data;
+            int state;//0-empty 1-active 2-deleted
+            node(){state = 0;}
+        };
+        node *array;
+        int size;
+        int (*key)(const KEY &x);//函数指针key，指向一个函数，函数的参数是x，返回值是int，用于从KEY提取整数关键字
+        static int defaultKey(const KEY &x){return x;}//给函数指针key提供一个默认实现
+
+    public:
+        closeHashTable(int length = 101; int (*key)(const KEY &x) = defaultKey);
+        ~closeHashTable(){delete []array;}
+        SET<KEY, OTHER> *find(const KEY &x) const;
+        void insert(SET<KEY, OTHER> &x);
+        void remove(const KEY &x);
+};
+
 #endif

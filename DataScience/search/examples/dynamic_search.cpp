@@ -187,3 +187,50 @@ bool AvlTree<KEY, OTHER>::adjust(AvlNode *&t, int subTree){
         if (height(t->right) == height(t->left)) return false; return true;
     }
 }
+
+//散列表
+template <class KEY, class OTHER>
+closeHashTable<KEY, OTHER>::closeHashTable(int length = 101; int (*key)(const KEY &x) = defaultKey)){
+    size = length;
+    array = new node[size];
+    key = f;
+}
+
+template <class KEY, class OTHER>
+SET<KEY, OTHER> *closeHashTable<KEY, OTHER>::find(const KEY &x){
+    int initPos, pos;
+    initPos = pos = key(x) % size;//注意key函数指针的使用
+    do {
+        if (array[pos].state == 0) return nullptr;
+        if (array[pos].state == 1 && array[pos].data.key == x) return (SET<KEY, OTHER> *)&array[pos];
+        pos = (pos + 1) % size;
+    }while (pos != initPos);
+}
+
+template <class KEY, class OTHER>
+void closeHashTable<KEY, OTHER>::insert(SET<key, OTHER> &x){
+    int pos, initPos;
+    pos = initPos = key(x.key) % size;
+    do {
+        if (array[pos].state != 1){
+            array[pos].data = x;
+            array[pos].state = 1;
+            return;
+        }
+        pos = (pos + 1)%size;
+    }while (pos != initPos);
+}
+
+template <class KEY, class OTHER>
+void closeHashTable<KEY, OTHER>::remove(const KEY &X){
+    int initPos, pos;
+    initPos = pos = key(x) % size;
+    do {
+        if (array[pos].state == 0) return;
+        if (array[pos].state == 1 && x == arr[pos].data.key){
+            array[pos].state = 2;
+            return;
+        }
+        pos = (pos + 1) % size;
+    }while (pos != initPos);
+}
