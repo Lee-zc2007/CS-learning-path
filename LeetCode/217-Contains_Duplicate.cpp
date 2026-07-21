@@ -12,3 +12,5 @@ public:
         return false;
     }
 };
+//时间O(nlogn) 空间O(logn)
+//改成哈希一次遍历加入可以优化到时间O(n) 空间O(n)
