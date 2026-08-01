@@ -31,7 +31,7 @@ public:
             }
             int last_k = k;
             do {k++;}
-            while (nums[k] == nums[last_k]);
+            while (k<nums.size()-1 && nums[k] == nums[last_k]);
         }
         return ans;
     }
