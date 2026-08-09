@@ -57,3 +57,22 @@ plt.annotate(
     arrowprops=dict(facecolor="black"，arrowstyle='->')#添加一个从注释指向其所指的注释点的箭头，facecolor是填充色，edgecolor是边框色
 )
 ```
+
+*分组柱状图*
+```
+#用isin快速筛选出需要的行
+#用groupby(["state","grade"])获得中间数据
+#用unstack进行数据重塑
+#此时plot就可以获得分组柱状图
+
+df.unstack() #把行索引中的某一层旋转到列索引上
+```
+
+*图例及参数*
+```
+plt.legend() #用于绘制图例
+
+head=“Grade” #给图例添加标题
+
+bbox_to_anchor=(1,1) #图例框的放置位置，x和y轴都是0-1，配合loc使用可以指定哪个点为基准
+```

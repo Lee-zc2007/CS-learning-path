@@ -13,6 +13,7 @@ df.drop(labels=None, axis=0, index=None, columns=None, inplace=False) #axis=0代
 df.sort_values(by='ages',ascending=False) #按照ages排序，默认升序，ascending为False降序，多列排序需要提供两个list分别给by和ascending
 df.sort_index() #按照索引排序
 df.set_index(keys, drop=True, append=False, inplace=False, verify_integrity=False) #将其中一列设置为索引
+df[df["state"].isin(["DC", "AK"])] #用isin可以快速提取出符合条件的行
 ```
 
 *查看信息*
