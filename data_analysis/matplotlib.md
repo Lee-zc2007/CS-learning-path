@@ -17,6 +17,8 @@ plt.grid(
     which = "major" #针对主刻度（默认）还是副刻度（minor），两个都画是both
 )
 
+plt.xlim(0,5000) #设置x轴范围
+
 
 
 alpha=0.7 #alpha可以调整透明度
@@ -58,6 +60,15 @@ plt.annotate(
 )
 ```
 
+*图例及参数*
+```
+plt.legend() #用于绘制图例
+
+head=“Grade” #给图例添加标题
+
+bbox_to_anchor=(1,1) #图例框的放置位置，x和y轴都是0-1，配合loc使用可以指定哪个点为基准
+```
+
 *分组柱状图*
 ```
 #用isin快速筛选出需要的行
@@ -68,11 +79,26 @@ plt.annotate(
 df.unstack() #把行索引中的某一层旋转到列索引上
 ```
 
-*图例及参数*
+*堆叠柱状图*
 ```
-plt.legend() #用于绘制图例
+grouped_df = df.groupby(["grade","homeownership"])["loan_amount"].sum().unstack()
+grouped_df.plot(
+    kind="bar",
+    stack=True #画堆叠柱状图
+    color=["Green","red"]
+)
 
-head=“Grade” #给图例添加标题
+#更复杂一点还可以创建100%堆叠图
+```
 
-bbox_to_anchor=(1,1) #图例框的放置位置，x和y轴都是0-1，配合loc使用可以指定哪个点为基准
+*散点图*
+```
+#用于可视化两个数值特征之间的关系
+plt.scatter(
+    df["character1"],df["character2"]，
+    alpha=0.5, #对于点比较多的情况可以降低透明度，方便看清集中部分
+    marker="^" #控制点的形状
+) #创建散点图
+
+plt.axvline(x=df["annual_income"].quantile(0.95)) #绘制一条垂直分割线
 ```
